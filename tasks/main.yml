@@ -1,0 +1,62 @@
+---
+- name: Remove scaleft repository
+  ansible.builtin.yum_repository:
+    name: scaleft
+    state: absent
+
+- name: Remove scaleft repository
+  ansible.builtin.yum_repository:
+    name: scaleft_yum
+    state: absent
+
+- name: Add scaleft_yum repository
+  ansible.builtin.yum_repository:
+    # https://pkg.scaleft.com/scaleft_yum.repo
+    name: scaleft
+    file: scaleft_yum
+    description: ScaleFT
+    baseurl: http://pkg.scaleft.com/rpm
+    gpgkey: https://dist.scaleft.com/pki/scaleft_rpm_key.asc
+    async: true
+    gpgcheck: true
+    repo_gpgcheck: true
+
+- name: Install scaleft-server-tools
+  ansible.builtin.package:
+    name: scaleft-server-tools
+    state: present
+
+- name: Create sft config directory
+  ansible.builtin.file:
+    path: /etc/sft
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+
+- name: Create sftd config file
+  ansible.builtin.copy:
+    dest: /etc/sft/sftd.yaml
+    content: |
+      ---
+      EnrollmentTokenFile: /var/lib/sftd/enrollment.token
+      CanonicalName: "{{ inventory_hostname }}"
+      AccessAddress: "{{ ansible_default_ipv4.address }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart sftd
+
+- name: Remove sft enrollment token
+  ansible.builtin.file:
+    path: /var/lib/sftd/enrollment.token
+    state: absent
+
+- name: Flush handlers before start
+  ansible.builtin.meta: flush_handlers
+
+- name: Start sftd
+  ansible.builtin.service:
+    name: sftd
+    state: started

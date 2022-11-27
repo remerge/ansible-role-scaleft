@@ -1,0 +1,5 @@
+---
+- name: Restart sftd
+  ansible.builtin.service:
+    name: sftd
+    state: restarted
