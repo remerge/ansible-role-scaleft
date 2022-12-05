@@ -35,13 +35,9 @@
     mode: 0700
 
 - name: Create sftd config file
-  ansible.builtin.copy:
+  ansible.builtin.template:
+    source: sftd.yaml.j2
     dest: /etc/sft/sftd.yaml
-    content: |
-      ---
-      EnrollmentTokenFile: /var/lib/sftd/enrollment.token
-      CanonicalName: "{{ inventory_hostname }}"
-      AccessAddress: "{{ ansible_default_ipv4.address }}"
     owner: root
     group: root
     mode: 0644
