@@ -36,7 +36,7 @@
 
 - name: Create sftd config file
   ansible.builtin.template:
-    source: sftd.yaml.j2
+    src: sftd.yaml.j2
     dest: /etc/sft/sftd.yaml
     owner: root
     group: root
