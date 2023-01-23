@@ -44,6 +44,16 @@
   notify:
     - Restart sftd
 
+- name: Override sftd.service
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/sftd.service.d/override.conf
+    content: |
+      [Service]
+      OOMScoreAdjust=-1000
+    mode: 0644
+  notify:
+    - Restart sftd
+
 - name: Remove sft enrollment token
   ansible.builtin.file:
     path: /var/lib/sftd/enrollment.token
