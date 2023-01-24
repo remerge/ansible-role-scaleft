@@ -1,5 +1,6 @@
 ---
 - name: Restart sftd
-  ansible.builtin.service:
+  ansible.builtin.systemd:
     name: sftd
     state: restarted
+    daemon_reload: true
