@@ -3,3 +3,4 @@
   ansible.builtin.service:
     name: sftd
     state: restarted
+    daemon_reload: true
