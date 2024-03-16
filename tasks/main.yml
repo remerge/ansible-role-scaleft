@@ -15,8 +15,8 @@
     name: scaleft
     file: scaleft_yum
     description: ScaleFT
-    baseurl: http://pkg.scaleft.com/rpm
-    gpgkey: https://dist.scaleft.com/pki/scaleft_rpm_key.asc
+    baseurl: https://dist.scaleft.com/repos/rpm/stable/alma/9/x86_64/
+    gpgkey: https://dist.scaleft.com/GPG-KEY-OktaPAM-2023
     async: true
     gpgcheck: true
     repo_gpgcheck: true
