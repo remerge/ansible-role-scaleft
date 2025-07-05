@@ -32,7 +32,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0700
+    mode: "0700"
 
 - name: Create sftd config file
   ansible.builtin.template:
@@ -40,7 +40,7 @@
     dest: /etc/sft/sftd.yaml
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - Restart sftd
 
@@ -50,7 +50,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
 
 - name: Override sftd.service
   ansible.builtin.copy:
@@ -58,7 +58,7 @@
     content: |
       [Service]
       OOMScoreAdjust=-1000
-    mode: 0644
+    mode: "0644"
   notify:
     - Restart sftd
 
