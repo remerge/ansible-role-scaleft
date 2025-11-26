@@ -17,7 +17,6 @@
     description: ScaleFT
     baseurl: https://dist.scaleft.com/repos/rpm/stable/alma/9/x86_64/
     gpgkey: https://dist.scaleft.com/GPG-KEY-OktaPAM-2023
-    async: true
     gpgcheck: true
     repo_gpgcheck: true
 
