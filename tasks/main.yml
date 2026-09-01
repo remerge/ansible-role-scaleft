@@ -25,6 +25,15 @@
     name: scaleft-server-tools
     state: present
 
+# The 2016 ScaleFT signing key carries SHA1 self-signatures, which cannot be
+# loaded under the DEFAULT crypto policy on EL9 and cause "Could not load key
+# gpg-pubkey-e6bbeba1" warnings on every rpm operation. Current packages are
+# signed with the Okta PAM/ASA 2023 key imported from the repo's gpgkey URL.
+- name: Remove legacy ScaleFT GPG key with SHA1 self-signatures
+  ansible.builtin.rpm_key:
+    key: e6bbeba1
+    state: absent
+
 - name: Create sft config directory
   ansible.builtin.file:
     path: /etc/sft
